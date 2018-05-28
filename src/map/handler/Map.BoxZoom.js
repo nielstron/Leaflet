@@ -96,8 +96,11 @@ export var BoxZoom = Handler.extend({
 
 		DomUtil.setPosition(this._box, bounds.min);
 
+		// EDIT: keep map ratio for the selection
+		// For now, just stay square, use x coordinates two times
+
 		this._box.style.width  = size.x + 'px';
-		this._box.style.height = size.y + 'px';
+		this._box.style.height = size.x + 'px';
 	},
 
 	_finish: function () {
