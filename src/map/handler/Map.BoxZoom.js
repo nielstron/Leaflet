@@ -90,7 +90,7 @@ export var BoxZoom = Handler.extend({
 			this._map.fire('boxzoomstart');
 		}
 
-		point = this._map.mouseEventToContainerPoint(e);
+		var point = this._map.mouseEventToContainerPoint(e);
 
 		var bounds = new Bounds(point, this._startPoint),
 			size = bounds.getSize();
