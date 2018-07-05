@@ -1,9 +1,9 @@
 /* @preserve
- * Leaflet 1.3.1+fixed-ratio-selection-rectangle-build.99d54d3, a JS library for interactive maps. http://leafletjs.com
+ * Leaflet 1.3.1+fixed-ratio-selection-rectangle-build.7e85fd9, a JS library for interactive maps. http://leafletjs.com
  * (c) 2010-2018 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
 
-var version = "1.3.1+fixed-ratio-selection-rectangle-build.99d54d33";
+var version = "1.3.1+fixed-ratio-selection-rectangle-build.7e85fd90";
 
 /*
  * @namespace Util
@@ -12889,7 +12889,7 @@ var BoxZoom = Handler.extend({
 			this._map.fire('boxzoomstart');
 		}
 
-		point = this._map.mouseEventToContainerPoint(e);
+		var point = this._map.mouseEventToContainerPoint(e);
 
 		var bounds = new Bounds(point, this._startPoint),
 			size = bounds.getSize();
