@@ -1,5 +1,5 @@
 /* @preserve
- * Leaflet 1.3.1+fixed-ratio-selection-rectangle.6af05a6, a JS library for interactive maps. http://leafletjs.com
+ * Leaflet 1.3.1+fixed-ratio-selection-rectangle-build.40d7958, a JS library for interactive maps. http://leafletjs.com
  * (c) 2010-2018 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
 
@@ -9,7 +9,7 @@
 	(factory((global.L = {})));
 }(this, (function (exports) { 'use strict';
 
-var version = "1.3.1+fixed-ratio-selection-rectangle.6af05a6e";
+var version = "1.3.1+fixed-ratio-selection-rectangle-build.40d79580";
 
 /*
  * @namespace Util
@@ -12898,15 +12898,16 @@ var BoxZoom = Handler.extend({
 		this._point = this._map.mouseEventToContainerPoint(e);
 
 		var bounds = new Bounds(this._point, this._startPoint),
-		    size = bounds.getSize();
-
-		setPosition(this._box, bounds.min);
-
+			size = bounds.getSize();
+			
 		// EDIT: keep map ratio for the selection
-		// For now, just stay square, use x coordinates two times
+		// Selection ratio = map side ratio
+		var mapsize = this._map.getSize();
 
 		this._box.style.width  = size.x + 'px';
-		this._box.style.height = size.x + 'px';
+		this._box.style.height = Math.round(size.x * mapsize.y / mapsize.x) + 'px';
+
+		setPosition(this._box, bounds.min);
 	},
 
 	_finish: function () {
