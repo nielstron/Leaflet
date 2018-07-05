@@ -98,12 +98,12 @@ export var BoxZoom = Handler.extend({
 		// EDIT: keep map ratio for the selection
 		// Selection ratio = map side ratio
 		var mapsize = this._map.getSize();
-		var newWidth = point.x + size.x;
+		var newWidth = size.x;
 		var newHeight = Math.round(size.x * mapsize.y / mapsize.x);
 		var newPoint = new Point(point.x + newWidth, point.y + newHeight);
 		
 		// Re-set bounds and size
-		bounds = new Bounds(newPoint, this.__startPoint);
+		bounds = new Bounds(newPoint, this._startPoint);
 		size = bounds.getSize();
 		this._point = newPoint;		
 
