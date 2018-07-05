@@ -5,6 +5,7 @@ import * as DomUtil from '../../dom/DomUtil';
 import * as DomEvent from '../../dom/DomEvent';
 import {LatLngBounds} from '../../geo/LatLngBounds';
 import {Bounds} from '../../geometry/Bounds';
+import { Point } from '../../geometry/Point';
 
 /*
  * L.Handler.BoxZoom is used to add shift-drag zoom interaction to the map
@@ -89,17 +90,25 @@ export var BoxZoom = Handler.extend({
 			this._map.fire('boxzoomstart');
 		}
 
-		this._point = this._map.mouseEventToContainerPoint(e);
+		point = this._map.mouseEventToContainerPoint(e);
 
-		var bounds = new Bounds(this._point, this._startPoint),
+		var bounds = new Bounds(point, this._startPoint),
 			size = bounds.getSize();
-			
+
 		// EDIT: keep map ratio for the selection
 		// Selection ratio = map side ratio
 		var mapsize = this._map.getSize();
+		var newWidth = point.x + size.x;
+		var newHeight = Math.round(size.x * mapsize.y / mapsize.x);
+		var newPoint = new Point(point.x + newWidth, point.y + newHeight);
+		
+		// Re-set bounds and size
+		bounds = new Bounds(newPoint, this.__startPoint);
+		size = bounds.getSize();
+		this._point = newPoint;		
 
 		this._box.style.width  = size.x + 'px';
-		this._box.style.height = Math.round(size.x * mapsize.y / mapsize.x) + 'px';
+		this._box.style.height = size.y + 'px';
 
 		DomUtil.setPosition(this._box, bounds.min);
 	},
