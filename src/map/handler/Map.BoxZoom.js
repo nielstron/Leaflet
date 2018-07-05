@@ -92,15 +92,16 @@ export var BoxZoom = Handler.extend({
 		this._point = this._map.mouseEventToContainerPoint(e);
 
 		var bounds = new Bounds(this._point, this._startPoint),
-		    size = bounds.getSize();
-
-		DomUtil.setPosition(this._box, bounds.min);
-
+			size = bounds.getSize();
+			
 		// EDIT: keep map ratio for the selection
-		// For now, just stay square, use x coordinates two times
+		// Selection ratio = map side ratio
+		var mapsize = this._map.getSize();
 
 		this._box.style.width  = size.x + 'px';
-		this._box.style.height = size.x + 'px';
+		this._box.style.height = Math.round(size.x * mapsize.y / mapsize.x) + 'px';
+
+		DomUtil.setPosition(this._box, bounds.min);
 	},
 
 	_finish: function () {
